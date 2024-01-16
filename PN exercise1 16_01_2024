@@ -1,0 +1,22 @@
+-- Habitat table (parent table)
+create table habitats(habitat_id serial primary key, habitat_name varchar(50), climate varchar(50));
+
+-- Animals table (child table)
+create table animals(animal_id serial primary key, animal_name varchar(50), species varchar(50), habitat_id int,
+					constraint habitat_id foreign key (habitat_id) references habitats(habitat_id));
+
+-- Data entries
+insert into habitats(habitat_name, climate) values('Desert','Dry weather'),('Forest','Tropical'),('Grassland', 'Tropical wet'),
+												('Savanna','Tropical dry'),('Scrubland','Wet'),('Subterranean','Wet'),('Wetlands','Wet'),
+												('Marine','Cold');
+												
+insert into animals(animal_name, species, habitat_id) values('Lizard', 'Reptiles', 1),('Spider','Spider',1),('Sparrow','Birds',2),
+															('Monkey','Mammals',2),('Salmon','Fish',8),('Lion','Mammals',4);
+
+select * from habitats;
+select * from animals;
+
+-- Subqueries
+select animal_id, animal_name,species, count(habitat_id) from animals group by animal_id;
+
+select count(habitat_id) from animals group by animal_id;
